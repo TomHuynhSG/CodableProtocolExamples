@@ -62,10 +62,11 @@ var jsonURL = "https://jsonkeeper.com/b/4959"
 func decodeJsonFromString(inputJsonString: String) -> [Student] {
     let data = Data(inputJsonString.utf8)
     do {
-        let decoded = try JSONDecoder().decode([Student].self, from: data)
+        let decoder = JSONDecoder()
+        let decoded = try decoder.decode([Student].self, from: data)
         return decoded
-    } catch let err {
-        fatalError("Failed to decode JSON: \(err)")
+    } catch let error {
+        fatalError("Failed to decode JSON: \(error)")
     }
 }
 
@@ -76,13 +77,14 @@ func decodeJsonFromString(inputJsonString: String) -> [Student] {
 
 var studentJsonFileName = "students.json"
 
-// How to decode a json file URL into an array of struct
+// How to decode a json file into a struct
 func decodeJsonFromJsonFile(jsonFileName: String) -> [Student] {
     if let file = Bundle.main.url(forResource: jsonFileName, withExtension: nil){
         if let data = try? Data(contentsOf: file) {
             do {
                 let decoder = JSONDecoder()
-                return try decoder.decode([Student].self, from: data)
+                let decoded = try decoder.decode([Student].self, from: data)
+                return decoded
             } catch let error {
                 fatalError("Failed to decode JSON: \(error)")
             }
@@ -103,10 +105,11 @@ func decodeJsonFromURL(inputJsonURL: String) -> [Student] {
     if let url = URL(string: inputJsonURL) {
         if let data = try? Data(contentsOf: url) {
             do {
-                let decoded = try JSONDecoder().decode([Student].self, from: data)
+                let decoder = JSONDecoder()
+                let decoded = try decoder.decode([Student].self, from: data)
                 return decoded
-            } catch let err {
-                fatalError("Failed to decode JSON: \(err)")
+            } catch let error {
+                fatalError("Failed to decode JSON: \(error)")
             }
         }
     }
@@ -126,8 +129,8 @@ func encodeStructToJsonString(inputStruct: [Student]) -> String {
        if let jsonString = String(data: data, encoding: .utf8) {
            return jsonString
        }
-    } catch let err {
-        fatalError("Failed to encode JSON: \(err)")
+    } catch let error {
+        fatalError("Failed to encode JSON: \(error)")
     }
     return ""
 }
