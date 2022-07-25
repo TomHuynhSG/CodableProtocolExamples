@@ -54,7 +54,10 @@ var jsonNestedArrayString="""
 ]
 """
 
-// MARK: json String -> Struct
+// Json File URL Example
+var jsonURL = "https://jsonkeeper.com/b/4959"
+
+// MARK: json String -> Struct (Decoding)
 
 // How to decode a json string into a struct
 func decodeJsonFromString(inputJsonString: String) -> [Student] {
@@ -71,7 +74,7 @@ func decodeJsonFromString(inputJsonString: String) -> [Student] {
 //var myStudent = decodeJsonFromString(inputJsonString: jsonNestedArrayString)
 
 
-// MARK: json file -> Struct
+// MARK: json file -> Struct (Decoding)
 
 var studentJsonFileName = "students.json"
 
@@ -82,7 +85,7 @@ func decodeJsonFromJsonFile(jsonFileName: String) -> [Student] {
     guard let file = Bundle.main.url(forResource: jsonFileName, withExtension: nil)
         else {
             fatalError("Couldn't find \(jsonFileName) in main bundle.")
-    }
+        }
 
     do {
         data = try Data(contentsOf: file)
@@ -101,10 +104,7 @@ func decodeJsonFromJsonFile(jsonFileName: String) -> [Student] {
 //var myStudent = decodeJsonFromJsonFile(jsonFileName: studentJsonFileName)
 
 
-// MARK: json file URL -> Struct
-
-// Json File URL Example
-var jsonURL = "https://jsonkeeper.com/b/4959"
+// MARK: json file URL -> Struct (Decoding)
 
 // How to decode a json file URL into an array of struct
 func decodeJsonFromURL(inputJsonURL: String) -> [Student] {
@@ -125,8 +125,7 @@ var myStudent = decodeJsonFromURL(inputJsonURL: jsonURL)
 
 
 
-// MARK: extra functions
-
+// MARK: a struct -> Json string (Encoding)
 
 // How to encode a struct to json string
 func encodeStructToJsonString(inputStruct: [Student]) -> String {
