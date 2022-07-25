@@ -123,3 +123,23 @@ func decodeJsonFromURL(inputJsonURL: String) -> [Student] {
 
 var myStudent = decodeJsonFromURL(inputJsonURL: jsonURL)
 
+
+
+// MARK: extra functions
+
+
+// How to encode a struct to json string
+func encodeStructToJsonString(inputStruct: [Student]) -> String {
+    do {
+       let data = try JSONEncoder().encode(inputStruct)
+       // Print the encoded JSON data
+       if let jsonString = String(data: data, encoding: .utf8) {
+           return jsonString
+       }
+    } catch let err {
+        fatalError("Failed to encode JSON: \(err)")
+    }
+    return ""
+}
+
+var studentJsonString = encodeStructToJsonString(inputStruct: myStudent)

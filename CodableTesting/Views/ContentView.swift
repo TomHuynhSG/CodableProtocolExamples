@@ -13,18 +13,22 @@ struct ContentView: View {
         // Debugging using print statements
         var _ = print("All Students:")
         var _ = print(myStudent)
+        var _ = print("----------------------------")
         var _ = print("Student 1:")
         var _ = print(myStudent[0])
         var _ = print(myStudent[0].address)
+        var _ = print("----------------------------")
         var _ = print("Student 2:")
         var _ = print(myStudent[1])
         var _ = print(myStudent[1].address)
+        var _ = print("----------------------------")
+        var _ = print("Encode the Student Struct back to Json String:")
+        var _ = print(studentJsonString)
         
         // Loop through student struct
         List(myStudent, id: \.self.name){ student in
             Text(student.name)
         }
-        Text("Hello World")
     }
 }
 
