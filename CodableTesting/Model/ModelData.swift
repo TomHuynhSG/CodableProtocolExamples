@@ -54,7 +54,6 @@ var jsonNestedArrayString="""
 ]
 """
 
-// Json File URL Example
 var jsonURL = "https://jsonkeeper.com/b/4959"
 
 // MARK: json String -> Struct (Decoding)
@@ -67,7 +66,7 @@ func decodeJsonFromString(inputJsonString: String) -> [Student] {
         let decoded = try JSONDecoder().decode([Student].self, from: data)
         return decoded
     } catch let err {
-        fatalError("Failed to encode JSON: \(err)")
+        fatalError("Failed to decode JSON: \(err)")
     }
 }
 
@@ -80,25 +79,19 @@ var studentJsonFileName = "students.json"
 
 // How to decode a json file URL into an array of struct
 func decodeJsonFromJsonFile(jsonFileName: String) -> [Student] {
-    let data: Data
-
-    guard let file = Bundle.main.url(forResource: jsonFileName, withExtension: nil)
-        else {
-            fatalError("Couldn't find \(jsonFileName) in main bundle.")
+    if let file = Bundle.main.url(forResource: jsonFileName, withExtension: nil){
+        if let data = try? Data(contentsOf: file) {
+            do {
+                let decoder = JSONDecoder()
+                return try decoder.decode([Student].self, from: data)
+            } catch let error {
+                fatalError("Failed to decode JSON: \(error)")
+            }
         }
-
-    do {
-        data = try Data(contentsOf: file)
-    } catch {
-        fatalError("Couldn't load \(jsonFileName) from main bundle:\n\(error)")
+    } else {
+        fatalError("Couldn't load \(jsonFileName) file")
     }
-
-    do {
-        let decoder = JSONDecoder()
-        return try decoder.decode([Student].self, from: data)
-    } catch {
-        fatalError("Couldn't parse \([jsonFileName]) as \([Student].self):\n\(error)")
-    }
+    return [ ] as [Student]
 }
 
 //var myStudent = decodeJsonFromJsonFile(jsonFileName: studentJsonFileName)
@@ -108,13 +101,13 @@ func decodeJsonFromJsonFile(jsonFileName: String) -> [Student] {
 
 // How to decode a json file URL into an array of struct
 func decodeJsonFromURL(inputJsonURL: String) -> [Student] {
-    if let url = URL(string: jsonURL) {
+    if let url = URL(string: inputJsonURL) {
         if let data = try? Data(contentsOf: url) {
             do {
                 let decoded = try JSONDecoder().decode([Student].self, from: data)
                 return decoded
             } catch let err {
-                fatalError("Failed to encode JSON: \(err)")
+                fatalError("Failed to decode JSON: \(err)")
             }
         }
     }
