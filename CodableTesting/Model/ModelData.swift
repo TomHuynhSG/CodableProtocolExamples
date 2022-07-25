@@ -61,7 +61,6 @@ var jsonURL = "https://jsonkeeper.com/b/4959"
 // How to decode a json string into a struct
 func decodeJsonFromString(inputJsonString: String) -> [Student] {
     let data = Data(inputJsonString.utf8)
-    
     do {
         let decoded = try JSONDecoder().decode([Student].self, from: data)
         return decoded
@@ -124,7 +123,6 @@ var myStudent = decodeJsonFromURL(inputJsonURL: jsonURL)
 func encodeStructToJsonString(inputStruct: [Student]) -> String {
     do {
        let data = try JSONEncoder().encode(inputStruct)
-       // Print the encoded JSON data
        if let jsonString = String(data: data, encoding: .utf8) {
            return jsonString
        }
