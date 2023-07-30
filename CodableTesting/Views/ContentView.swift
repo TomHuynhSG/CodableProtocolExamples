@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         
-        // Debugging using print statements
+        // A tip to debugging using print statements right inside the view
         var _ = print("All Students:")
         var _ = print(myStudent)
         var _ = print("----------------------------")
@@ -25,16 +25,31 @@ struct ContentView: View {
         var _ = print("Encode the Student Struct back to Json String:")
         var _ = print(studentJsonString)
         
-        // Loop through student struct
-        List(myStudent, id: \.self.name){ student in
-            Text(student.name)
+        NavigationView{
+            // Loop through student struct
+            List(myStudent, id: \.self.name){ student in
+                
+                NavigationLink {
+                    VStack{
+                        Text(student.name)
+                        Text(student.email)
+                        Text("\(student.age)")
+                        Text("\(student.address.number)")
+                        Text(student.address.street)
+                    }
+                } label: {
+                    Text(student.name)
+                }
+
+            }
         }
+        
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .previewInterfaceOrientation(.portrait)
     }
 }

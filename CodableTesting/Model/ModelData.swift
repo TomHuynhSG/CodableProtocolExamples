@@ -54,7 +54,6 @@ var jsonNestedArrayString="""
 ]
 """
 
-var jsonURL = "https://jsonkeeper.com/b/4959"
 
 // MARK: json String -> Struct (Decoding)
 
@@ -95,28 +94,7 @@ func decodeJsonFromJsonFile(jsonFileName: String) -> [Student] {
     return [ ] as [Student]
 }
 
-//var myStudent = decodeJsonFromJsonFile(jsonFileName: studentJsonFileName)
-
-
-// MARK: json file URL -> Struct (Decoding)
-
-// How to decode a json file URL into an array of struct
-func decodeJsonFromURL(inputJsonURL: String) -> [Student] {
-    if let url = URL(string: inputJsonURL) {
-        if let data = try? Data(contentsOf: url) {
-            do {
-                let decoder = JSONDecoder()
-                let decoded = try decoder.decode([Student].self, from: data)
-                return decoded
-            } catch let error {
-                fatalError("Failed to decode JSON: \(error)")
-            }
-        }
-    }
-    return [ ] as [Student]
-}
-
-var myStudent = decodeJsonFromURL(inputJsonURL: jsonURL)
+var myStudent = decodeJsonFromJsonFile(jsonFileName: studentJsonFileName)
 
 
 
